@@ -1,0 +1,25 @@
+# build output
+build/
+dist/
+*.o
+*.so
+*.a
+
+# generated address headers (regenerate with tools/find_faction_enum.py)
+generated/
+
+# never commit game binaries or derived artifacts
+*.apk
+*.xapk
+*.obb
+*.pak
+libUnreal.so
+libUE4.so
+classes*.dex
+AndroidManifest.xml
+*.so.txt
+
+# editor / OS
+.DS_Store
+*.swp
+__pycache__/

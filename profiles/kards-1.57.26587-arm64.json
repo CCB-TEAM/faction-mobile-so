@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "id": "kards-1.57.26587-arm64",
+  "description": "KARDS Android arm64 (UE5) build. Addresses derived by static ELF/relocation analysis; see docs/ANDROID_RE.md. NOT runtime-verified.",
+  "platform": "android-arm64",
+  "verified": false,
+  "verified_note": "Structure fields confirmed by reading the binary. Function addresses are NOT yet located (see unresolved). No runtime test has been performed.",
+
+  "sample": {
+    "container": "KLink_1.57.26587.apk",
+    "member": "lib/arm64-v8a/libUnreal.so",
+    "size": 168921816,
+    "format": "ELF64 aarch64, PIE, full RELRO, NX",
+    "toolchain": "LLD 18.0.3 / Android clang 9.0.9",
+    "note": "Third-party repackaged APK; libUnreal.so itself is unmodified."
+  },
+
+  "sections": {
+    "rodata":        {"vaddr": "0x2156900", "size": "0x81d7a4"},
+    "eh_frame":      {"vaddr": "0x2bbdb18", "size": "0xd3c8f8"},
+    "text":          {"vaddr": "0x38ff000", "size": "0x58640f8"},
+    "data_rel_ro":   {"vaddr": "0x9169440", "size": "0xe69180"},
+    "init_array":    {"vaddr": "0x9fd25d0", "count": 1664},
+    "got":           {"vaddr": "0x9fd5bf0", "size": "0x11dfa0"},
+    "data":          {"vaddr": "0xa0f8d40", "size": "0x2ae58"},
+    "rela_dyn":      {"vaddr": "0x85a0",    "size": "0x214aeb0", "count": 1454578}
+  },
+
+  "enum": {
+    "params_rva":      "0x98ed298",
+    "enumerators_rva": "0x98ed1c8",
+    "enum_name_rva":   "0x261865e",
+    "outer_rva":       "0x6e874f4",
+    "params_got_slot": "0xa084b38",
+
+    "original_count": 13,
+    "enumerator_size": 16,
+    "params_size": 48,
+    "count_offset": 44,
+
+    "original_names": [
+      "EFactionEnum::NotAvailable", "EFactionEnum::Germany", "EFactionEnum::Britain",
+      "EFactionEnum::Japan", "EFactionEnum::Soviet", "EFactionEnum::USA",
+      "EFactionEnum::France", "EFactionEnum::Italy", "EFactionEnum::Poland",
+      "EFactionEnum::Finland", "EFactionEnum::Anzac", "EFactionEnum::Allies",
+      "EFactionEnum::Neutral"
+    ],
+
+    "expected": {
+      "flags": "0x45",
+      "enum_flags": 0,
+      "cpp_form": 2,
+      "display_is_null": true,
+      "cpp_type_equals_name": true,
+      "name": "EFactionEnum"
+    }
+  },
+
+  "functions": {
+    "NameToEnum": null,
+    "Encode": null,
+    "Decode": null
+  },
+
+  "unresolved": [
+    "NameToEnum / Encode / Decode function addresses",
+    "Singleton / StaticSingleton addresses (used by NoEnumYet)",
+    "Entry timing: which .init_array slot constructs EFactionEnum",
+    "Semantics of outer_rva (UObject outer / package?)",
+    "Mobile deck-code alphabet (b..z for new factions?)",
+    "Presence of anti-tamper / anti-debug"
+  ],
+
+  "how_to_regenerate": "python3 tools/find_faction_enum.py libUnreal.so"
+}
